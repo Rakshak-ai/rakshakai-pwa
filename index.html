@@ -1,104 +1,57 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RakshakAI</title>
+  
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
+
+  <!-- PWA manifest -->
   <link rel="manifest" href="manifest.json">
+
+  <!-- Firebase SDK -->
+  <script type="module" src="firebase-config.js"></script>
+
+  <!-- Phase-2 JS files -->
+  <script type="module" src="ai-chat.js"></script>
+  <script type="module" src="sos.js"></script>
+  <script type="module" src="diary.js"></script>
+  <script type="module" src="subscription.js"></script>
 </head>
 <body>
+  <!-- Header / Logo -->
   <header>
     <img src="assets/logo.png" alt="RakshakAI Logo" class="logo">
     <h1>RakshakAI</h1>
+    <p>Because Every Victim Deserves a Protector</p>
   </header>
 
-  <main>
-    <section id="home">
-      <h2>Hello User, you’re safe with RakshakAI ❤️</h2>
-      <div class="card-grid">
-        <button class="card" id="sosBtn">🚨 SOS</button>
-        <button class="card" id="chatBtn">💬 AI Chat</button>
-        <button class="card" disabled>⚖️ Legal Help</button>
-        <button class="card" disabled>🎥 Record Evidence</button>
-        <button class="card" disabled>📓 Diary</button>
-        <button class="card" disabled>🧠 Mental Wellness</button>
-      </div>
-    </section>
-
-    <section id="chatbot" class="hidden">
-      <div class="chat-header">
-        <img src="assets/chatbot-icon.png" alt="Chatbot">
-        <span>AI Chatbot (Demo)</span>
-        <button id="closeChat">X</button>
-      </div>
-      <div class="chat-window" id="chatWindow"></div>
-      <input type="text" id="userInput" placeholder="Type your message...">
-      <button id="sendBtn">Send</button>
-    </section>
-
-    <section id="profile" class="hidden">
-      <h2>User Profile</h2>
-      <p>Name: Jane Doe</p>
-      <p>Subscription: Free</p>
-      <button disabled>Edit Profile</button>
-      <button disabled>Change PIN</button>
-      <button id="logout">Logout</button>
-      <h3>Donate / Support</h3>
-      <img src="assets/logo.png" alt="QR Code" class="qr">
-      <p>UPI: 9265371759@ybl</p>
-    </section>
+  <!-- Home / Feature Buttons -->
+  <main class="home-grid">
+    <button id="btn-sos">🚨 SOS</button>
+    <button id="btn-ai-chat">💬 AI Chat</button>
+    <button id="btn-legal-help">⚖️ Legal Help</button>
+    <button id="btn-record">🎥 Record Evidence</button>
+    <button id="btn-diary">📓 Diary</button>
+    <button id="btn-mental">🧠 Mental Wellness</button>
   </main>
 
+  <!-- Profile & Donate buttons -->
   <footer>
-    <p>Because Every Victim Deserves a Protector</p>
+    <button id="btn-profile">👤 Profile</button>
+    <button id="btn-donate">💰 Donate</button>
   </footer>
 
+  <!-- Service Worker registration -->
   <script>
-    // Basic Navigation
-    const chatBtn = document.getElementById("chatBtn");
-    const chatSection = document.getElementById("chatbot");
-    const closeChat = document.getElementById("closeChat");
-    chatBtn.addEventListener("click", () => {
-      chatSection.classList.remove("hidden");
-    });
-    closeChat.addEventListener("click", () => {
-      chatSection.classList.add("hidden");
-    });
-
-    // Demo Chatbot
-    const sendBtn = document.getElementById("sendBtn");
-    const userInput = document.getElementById("userInput");
-    const chatWindow = document.getElementById("chatWindow");
-    sendBtn.addEventListener("click", () => {
-      const msg = userInput.value.trim();
-      if(msg){
-        const userMsg = document.createElement("div");
-        userMsg.className = "user-msg";
-        userMsg.textContent = msg;
-        chatWindow.appendChild(userMsg);
-
-        const botMsg = document.createElement("div");
-        botMsg.className = "bot-msg";
-        botMsg.textContent = "Hi! RakshakAI is here. (Real AI coming in Phase-2)";
-        chatWindow.appendChild(botMsg);
-
-        chatWindow.scrollTop = chatWindow.scrollHeight;
-        userInput.value = "";
-      }
-    });
-
-    // SOS Button Demo
-    const sosBtn = document.getElementById("sosBtn");
-    sosBtn.addEventListener("click", () => {
-      alert("SOS Triggered! (Real alert feature coming in Phase-2)");
-    });
-
-    // Logout
-    document.getElementById("logout").addEventListener("click", () => {
-      alert("Logout clicked (Phase-2 functional)");
-    });
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+      .then(() => console.log('Service Worker Registered'))
+      .catch(err => console.error('SW registration failed:', err));
+    }
   </script>
+
 </body>
 </html>
